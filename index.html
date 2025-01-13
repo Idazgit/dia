@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Jeu Du Diable</title>
+  </head>
+  <body>
+    <div class="premierePage">
+      <img class="logo" src="dés.png" alt="" />
+      <div class="txtPremierePage">
+        <p>JOUER</p>
+        <p>REGLES</p>
+        <p>MODES</p>
+      </div>
+    </div>
+    <div class="gamePage"></div>
+    <div class="rulesPage">
+      <h1>LE DIABLE</h1>
+      <ul>
+        <li>Valeur des dés = 2 : Distribuez 1 gorgée.</li>
+        <li>Valeur des dés = 3 : Ne fait rien.</li>
+        <li>
+          Valeur des dés = 4 :
+          <ol>
+            <li>Si c'est un double, distribuez 2 gorgées.</li>
+            <li>
+              Si les dés affichent 3 et 1, vous devenez le Diable (voir règles
+              du Diable ci-dessous).
+            </li>
+          </ol>
+        </li>
+        <li>Valeur des dés = 5 : Ne fait rien.</li>
+        <li>
+          Valeur des dés = 6 :
+          <ol>
+            <li>Si c'est un double, distribuez 3 gorgées.</li>
+          </ol>
+        </li>
+        <li>
+          Valeur des dés = 7 :
+          <ol>
+            <li>
+              Si les dés affichent 3 et 4, criez DIABLE le plus vite possible.
+            </li>
+            <li>Celui qui est le dernier à crier doit boire 1 gorgée.</li>
+          </ol>
+        </li>
+        <li>
+          Valeur des dés = 8 :
+          <ol>
+            <li>Si c'est un double, distribuez 4 gorgées.</li>
+            <li>La personne ayant lancé juste avant boit 1 gorgée.</li>
+          </ol>
+        </li>
+        <li>
+          Valeur des dés = 9 :
+          <ol>
+            <li>La personne qui a lancé les dés boit 1 gorgée.</li>
+          </ol>
+        </li>
+        <li>
+          Valeur des dés = 10 :
+          <ol>
+            <li>Si c'est un double, distribuez 5 gorgées.</li>
+            <li>La personne jouant après boit 1 gorgée.</li>
+          </ol>
+        </li>
+        <li>Valeur des dés = 11 : Tout le monde boit 1 gorgée.</li>
+        <li>Valeur des dés = 12 : Distribuez 6 gorgées.</li>
+      </ul>
+      <h2>Règles Pour Le Diable</h2>
+      <ul>
+        <li>Vous devenez le Diable si vous obtenez 3 et 1 sur les dés.</li>
+        <li>
+          Tant que vous êtes le Diable :
+          <ol>
+            <li>
+              Si vous lancez un dé avec la valeur 3, vous devez boire
+              l'équivalent de l'autre dé.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Vous perdez votre statut de Diable lorsque :
+          <ol>
+            <li>Un autre joueur obtient 3 et 1.</li>
+            <li>Ou vous avez bu 3 fois un 3 et 6.</li>
+          </ol>
+        </li>
+      </ul>
+    </div>
+    <div class="modesPage"></div>
+  </body>
+</html>
