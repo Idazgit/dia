@@ -12,19 +12,31 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Jeu Du Diable</title>
   </head>
   <body>
     <div class="premierePage">
       <img class="logo" src="DIABLE 2 EDIT.png" alt="" />
       <div class="txtPremierePage">
-        <p>JOUER</p>
-        <p>REGLES</p>
-        <p>MODES</p>
+        <a href="#"><p class="jouer">JOUER</p></a>
+        <a href="#"><p class="regles">REGLES</p></a>
+        <a href="#"><p class="modes">MODES</p></a>
       </div>
     </div>
     <div class="gamePage">
+      <div class="divButtonBack">
+        <button class="buttonBack">
+          <i class="fa-solid fa-backward"></i>
+          BACK
+        </button>
+      </div>
       <div class="divPlayer">
         <input type="text" name="" id="pseudo" />
         <input type="text" name="" id="pseudo" />
@@ -32,9 +44,19 @@
           <button id="addPlayer">+</button>
         </div>
       </div>
+      <div class="loadGameDiv">
+        <a href="#"><h2 id="loadGame">LANCER LA PARTIE</h2></a>
+      </div>
     </div>
     <div class="rulesPage">
+      <div class="divButtonBack">
+        <button class="buttonBack2">
+          <i class="fa-solid fa-backward"></i>
+          BACK
+        </button>
+      </div>
       <h1>LE DIABLE</h1>
+
       <ul>
         <li>Valeur des dés = 2 : Distribuez 1 gorgée.</li>
         <li>Valeur des dés = 3 : Ne fait rien.</li>
@@ -109,6 +131,26 @@
       </ul>
     </div>
     <div class="modesPage"></div>
+    <div class="tapisJeu">
+      <div class="hautTapis">
+        <button class="endGame">END GAME</button>
+        <div class="actualPlayer"></div>
+        <div id="chrono">00:00</div>
+      </div>
+    </div>
+    <div class="endPage">
+      <div class="reload"><button class="buttonReload">NEW GAME</button></div>
+      <div class="divImg">
+        <h3 class="premier">tristan</h3>
+        <h4 class="gorPremier">10</h4>
+        <h3 class="deuxieme">blyat 1</h3>
+        <div class="gorDeuxieme">10</div>
+        <h3 class="troisieme">troisieme</h3>
+        <div class="gorTroisieme">10</div>
+        <img class="imgPodium" src="PodiumEnd.png" alt="" />
+      </div>
+      <div class="podiumLast"></div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
