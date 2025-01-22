@@ -4,22 +4,47 @@ const premierePage = document.querySelector(".premierePage");
 const gamePage = document.querySelector(".gamePage");
 const rulesPage = document.querySelector(".rulesPage");
 
-//choix des pseudo
-let playerCount = 0;
-console.log(playerCount);
+// Ajouter un tableau pour stocker les pseudos
+let pseudoList = [];
+console.log(pseudoList);
 
+// Récupérer les inputs déjà présents
+const initialInputs = document.querySelectorAll("#pseudo");
+initialInputs.forEach((input, index) => {
+  // Ajouter les valeurs initiales au tableau
+  pseudoList[index] = input.value.trim();
+
+  // Mettre à jour le tableau lorsqu'un champ existant est modifié
+  input.addEventListener("blur", (event) => {
+    const value = event.target.value.trim();
+    pseudoList[index] = value;
+  });
+});
+
+// Mise à jour du compteur en fonction des inputs existants
+let playerCount = initialInputs.length;
+
+// Ajouter un nouvel input avec le bouton "addPlayer"
 addPlayer.addEventListener("click", () => {
   if (playerCount < 10) {
     playerCount++;
 
     const newPlayer = document.createElement("input");
     newPlayer.setAttribute("type", "text");
-    newPlayer.id = "pseudo";
+    newPlayer.classList.add("pseudo-input");
+
+    // Sauvegarder le pseudo lorsqu'on quitte l'input
+    newPlayer.addEventListener("blur", (event) => {
+      const value = event.target.value.trim();
+      pseudoList[playerCount - 1] = value; // Mettre à jour le tableau
+    });
+
     divPlayer.appendChild(newPlayer);
   } else {
     addPlayer.disabled = true;
   }
 });
+
 // changement de page
 const jouer = document.querySelector(".jouer");
 const regles = document.querySelector(".regles");
@@ -67,8 +92,6 @@ const demarrer = () => {
   //recupération des données input pseudo
   const newPlayer = document.getElementById("pseudo");
   const actualPlayer = document.querySelector(".actualPlayer");
-  const inputValue = newPlayer.value;
-  actualPlayer.textContent = inputValue;
 
   gamePage.style.display = "none";
   tapisJeu.style.display = "flex";
@@ -138,7 +161,7 @@ endGame.addEventListener("click", () => {
   tapisJeu.style.display = "none";
   endPage.style.display = "flex";
 });
-//bouton reload
+//bouton reload game
 const reload = document.querySelector(".buttonReload");
 
 function handleclick() {
