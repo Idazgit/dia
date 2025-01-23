@@ -3,10 +3,23 @@ const divPlayer = document.querySelector(".divPlayer");
 const premierePage = document.querySelector(".premierePage");
 const gamePage = document.querySelector(".gamePage");
 const rulesPage = document.querySelector(".rulesPage");
+const tapisJeu = document.querySelector(".tapisJeu");
+const endGame = document.querySelector(".endGame");
+const endPage = document.querySelector(".endPage");
+const jouer = document.querySelector(".jouer");
+const regles = document.querySelector(".regles");
+const actualPlayer = document.querySelector(".actualPlayer");
+const bouttonJoueur = document.querySelector(".bouttonJoueur");
+const reload = document.querySelector(".buttonReload");
+let chrono = document.getElementById("chrono");
+let startBtn = document.getElementById("loadGame");
 
 // Ajouter un tableau pour stocker les pseudos
 let pseudoList = [];
+let indexJoueurActuel = 0;
+const scores = {};
 console.log(pseudoList);
+console.log(scores);
 
 // Récupérer les inputs déjà présents
 const initialInputs = document.querySelectorAll("#pseudo");
@@ -44,11 +57,30 @@ addPlayer.addEventListener("click", () => {
     addPlayer.disabled = true;
   }
 });
+// Chaque joueur commence avec un score de 0
+pseudoList.forEach((pseudo) => {
+  scores[pseudo] = 0;
+});
+console.log(pseudo);
 
-// changement de page
-const jouer = document.querySelector(".jouer");
-const regles = document.querySelector(".regles");
+//function qui change les pseudo dans la div l'un après l'autre
+function changementPseudo() {
+  actualPlayer.textContent = pseudoList[0];
+  bouttonJoueur.addEventListener("click", () => {
+    actualPlayer.textContent = pseudoList[indexJoueurActuel];
+    indexJoueurActuel = (indexJoueurActuel + 1) % pseudoList.length;
 
+    //function qui fait le dés randoms
+    function désClique() {
+      const randomNumber = Math.floor(Math.random() * 12) + 1;
+      const resultat = Math.floor(randomNumber);
+      console.log(randomNumber);
+    }
+    désClique();
+  });
+}
+
+// changement de page pour jouer
 regles.addEventListener("click", () => {
   rulesPage.style.display = "flex";
   premierePage.style.display = "none";
@@ -58,7 +90,11 @@ jouer.addEventListener("click", () => {
   gamePage.style.display = "flex";
   premierePage.style.display = "none";
 });
-//boutton back
+endGame.addEventListener("click", () => {
+  tapisJeu.style.display = "none";
+  endPage.style.display = "flex";
+});
+//boutton back qui change de page
 const buttonBack1 = document.querySelector(".buttonBack");
 
 buttonBack1.addEventListener("click", () => {
@@ -73,15 +109,10 @@ buttonBack2.addEventListener("click", () => {
 });
 
 // CHRONO !
-
-let chrono = document.getElementById("chrono");
-let startBtn = document.getElementById("loadGame");
-
 let heures = 0;
 let minutes = 0;
 let secondes = 0;
 let timeout;
-
 let estArrete = true;
 
 const demarrer = () => {
@@ -89,10 +120,9 @@ const demarrer = () => {
     estArrete = false;
     defilerTemps();
   }
-  //recupération des données input pseudo
-  const newPlayer = document.getElementById("pseudo");
-  const actualPlayer = document.querySelector(".actualPlayer");
+  changementPseudo();
 
+  //changement de page vers la page de jeu
   gamePage.style.display = "none";
   tapisJeu.style.display = "flex";
 };
@@ -141,31 +171,10 @@ const defilerTemps = () => {
   timeout = setTimeout(defilerTemps, 1000);
 };
 
-const reset = () => {
-  chrono.textContent = "00:00";
-  estArrete = true;
-  heures = 0;
-  minutes = 0;
-  secondes = 0;
-  clearTimeout(timeout);
-};
-
 startBtn.addEventListener("click", demarrer);
 
-//bouton endPage
-const endGame = document.querySelector(".endGame");
-const endPage = document.querySelector(".endPage");
-const tapisJeu = document.querySelector(".tapisJeu");
-
-endGame.addEventListener("click", () => {
-  tapisJeu.style.display = "none";
-  endPage.style.display = "flex";
-});
 //bouton reload game
-const reload = document.querySelector(".buttonReload");
-
 function handleclick() {
   window.location.reload();
 }
-
 reload.addEventListener("click", handleclick);
