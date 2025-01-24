@@ -62,20 +62,70 @@ pseudoList.forEach((pseudo) => {
   scores[pseudo] = 0;
 });
 console.log(pseudo);
-
+let dernierTableau = pseudoList[pseudoList.length - 1];
+let premierTableau = pseudoList[0];
 //function qui change les pseudo dans la div l'un après l'autre
 function changementPseudo() {
   actualPlayer.textContent = pseudoList[0];
   bouttonJoueur.addEventListener("click", () => {
-    actualPlayer.textContent = pseudoList[indexJoueurActuel];
-    indexJoueurActuel = (indexJoueurActuel + 1) % pseudoList.length;
-
     //function qui fait le dés randoms
     function désClique() {
       const randomNumber = Math.floor(Math.random() * 12) + 1;
       const resultat = Math.floor(randomNumber);
-      console.log(randomNumber);
+      console.log(resultat);
+
+      switch (resultat) {
+        case 2:
+          text = "distribue 1 gorgée";
+          break;
+        case 3:
+          break;
+        case 4:
+          console.log("distribue 2 gorgées");
+          break;
+        case 5:
+          break;
+        case 6:
+          console.log("distribue 3 gorgées");
+          break;
+        case 7:
+          console.log("crie diable");
+          break;
+        case 8:
+          if (premierTableau) {
+            console.log(dernierTableau + " boit 1 gorgée");
+          } else {
+            console.log(pseudoList[indexJoueurActuel - 2] + "boit 1 gorgée");
+          }
+          break;
+        case 9:
+          if (premierTableau) {
+            console.log(dernierTableau + " boit 1 gorgée");
+          } else {
+            console.log(pseudoList[indexJoueurActuel - 1] + "boit 1 gorgée");
+          }
+
+          break;
+        case 10:
+          if (dernierTableau) {
+            console.log(premierTableau + " boit 1 gorgée");
+          } else {
+            console.log(pseudoList[indexJoueurActuel] + 1 + " boit 1 gorgée");
+          }
+
+          break;
+        case 11:
+          console.log("tout le monde boit");
+          break;
+        case 12:
+          console.log("distribue 6 gorgées");
+          break;
+        default:
+          console.log("ne fait rien");
+      }
     }
+    indexJoueurActuel = (indexJoueurActuel + 1) % pseudoList.length;
+    actualPlayer.textContent = pseudoList[indexJoueurActuel];
     désClique();
   });
 }
@@ -178,3 +228,5 @@ function handleclick() {
   window.location.reload();
 }
 reload.addEventListener("click", handleclick);
+
+// prendre les données de l'input et les ajouter dans le tableau puis vider l'input , rajouter une liste en dessous des inputs pour les joueurs deja rentré
