@@ -13,122 +13,98 @@ const bouttonJoueur = document.querySelector(".bouttonJoueur");
 const reload = document.querySelector(".buttonReload");
 let chrono = document.getElementById("chrono");
 let startBtn = document.getElementById("loadGame");
-
+const initialInputs = document.getElementById("pseudo");
+const liste = document.getElementById("maListe");
 // Ajouter un tableau pour stocker les pseudos
-let pseudoList = [];
-let indexJoueurActuel = 0;
-const scores = {};
-console.log(pseudoList);
-console.log(scores);
+let tableauPseudos = [];
+// définir l'index du joueur
+indexJoueurActuel = 0;
 
-// Récupérer les inputs déjà présents
-const initialInputs = document.querySelectorAll("#pseudo");
-initialInputs.forEach((input, index) => {
-  // Ajouter les valeurs initiales au tableau
-  pseudoList[index] = input.value.trim();
+let dernierTableau;
+// function qui ajoute les pseudo a la liste et au tableau
+function ajouterName() {
+  if (initialInputs.value !== "") {
+    // Ajouter la valeur au tableau
+    tableauPseudos.push(initialInputs.value.trim());
+    dernierTableau = tableauPseudos[tableauPseudos.length - 1];
+    // Créer un nouvel élément de liste
+    const li = document.createElement("li");
+    li.textContent = initialInputs.value;
 
-  // Mettre à jour le tableau lorsqu'un champ existant est modifié
-  input.addEventListener("blur", (event) => {
-    const value = event.target.value.trim();
-    pseudoList[index] = value;
-  });
-});
+    // Ajouter l'élément à la liste
+    liste.appendChild(li);
 
-// Mise à jour du compteur en fonction des inputs existants
-let playerCount = initialInputs.length;
-
-// Ajouter un nouvel input avec le bouton "addPlayer"
-addPlayer.addEventListener("click", () => {
-  if (playerCount < 10) {
-    playerCount++;
-
-    const newPlayer = document.createElement("input");
-    newPlayer.setAttribute("type", "text");
-    newPlayer.classList.add("pseudo-input");
-
-    // Sauvegarder le pseudo lorsqu'on quitte l'input
-    newPlayer.addEventListener("blur", (event) => {
-      const value = event.target.value.trim();
-      pseudoList[playerCount - 1] = value; // Mettre à jour le tableau
-    });
-
-    divPlayer.appendChild(newPlayer);
-  } else {
-    addPlayer.disabled = true;
+    // Vider l'input
+    initialInputs.value = "";
+    // Afficher le tableau dans la console
+    console.log("Tableau des pseudos:", tableauPseudos);
   }
-});
-// Chaque joueur commence avec un score de 0
-pseudoList.forEach((pseudo) => {
-  scores[pseudo] = 0;
-});
-console.log(pseudo);
-let dernierTableau = pseudoList[pseudoList.length - 1];
-let premierTableau = pseudoList[0];
-//function qui change les pseudo dans la div l'un après l'autre
+}
+// function qui fait une valeur dés aléatoire
+function desAleatoires() {
+  const randomNumber = Math.floor(Math.random() * 12) + 1;
+  const resultat = Math.floor(randomNumber);
+  console.log(resultat);
+  return resultat;
+}
+// function change l'affichage des pseudo dans la div actual
+function switchPseudo() {
+  indexJoueurActuel = (indexJoueurActuel + 1) % tableauPseudos.length;
+  actualPlayer.textContent = tableauPseudos[indexJoueurActuel];
+}
+// changement des pseudo dans la div actualPlayer
 function changementPseudo() {
-  actualPlayer.textContent = pseudoList[0];
+  // définir la div pseudo au premier pseudo rentré lors du lancement de la page
+  actualPlayer.textContent = tableauPseudos[0];
+
+  // utilisation de la function pour l'affichage des pseudo / distribution des gorgées
   bouttonJoueur.addEventListener("click", () => {
-    //function qui fait le dés randoms
-    function désClique() {
-      const randomNumber = Math.floor(Math.random() * 12) + 1;
-      const resultat = Math.floor(randomNumber);
-      console.log(resultat);
+    switchPseudo();
+    calculGorgées();
 
-      switch (resultat) {
-        case 2:
-          text = "distribue 1 gorgée";
-          break;
-        case 3:
-          break;
-        case 4:
-          console.log("distribue 2 gorgées");
-          break;
-        case 5:
-          break;
-        case 6:
-          console.log("distribue 3 gorgées");
-          break;
-        case 7:
-          console.log("crie diable");
-          break;
-        case 8:
-          if (premierTableau) {
-            console.log(dernierTableau + " boit 1 gorgée");
-          } else {
-            console.log(pseudoList[indexJoueurActuel - 2] + "boit 1 gorgée");
-          }
-          break;
-        case 9:
-          if (premierTableau) {
-            console.log(dernierTableau + " boit 1 gorgée");
-          } else {
-            console.log(pseudoList[indexJoueurActuel - 1] + "boit 1 gorgée");
-          }
-
-          break;
-        case 10:
-          if (dernierTableau) {
-            console.log(premierTableau + " boit 1 gorgée");
-          } else {
-            console.log(pseudoList[indexJoueurActuel] + 1 + " boit 1 gorgée");
-          }
-
-          break;
-        case 11:
-          console.log("tout le monde boit");
-          break;
-        case 12:
-          console.log("distribue 6 gorgées");
-          break;
-        default:
-          console.log("ne fait rien");
-      }
-    }
-    indexJoueurActuel = (indexJoueurActuel + 1) % pseudoList.length;
-    actualPlayer.textContent = pseudoList[indexJoueurActuel];
-    désClique();
+    console.log(dernierTableau);
   });
 }
+const premierTableau = tableauPseudos[0];
+
+function calculGorgées() {
+  resultat = desAleatoires();
+  switch (resultat) {
+    case 2:
+      console.log("distribue 1 gorgée");
+      break;
+    case 3:
+      break;
+    case 4:
+      console.log("distribue 2 gorgées");
+      break;
+    case 5:
+      break;
+    case 6:
+      console.log("distribue 3 gorgées");
+      break;
+    case 7:
+      console.log("crie diable");
+      break;
+    case 8:
+      break;
+    case 9:
+      break;
+    case 10:
+      break;
+    case 11:
+      console.log("tout le monde boit");
+      break;
+    case 12:
+      console.log("distribue 6 gorgées");
+      break;
+    default:
+      console.log("ne fait rien");
+  }
+}
+
+// Ajouter un nouveau pseudo avec le bouton "addPlayer"
+addPlayer.addEventListener("click", ajouterName);
 
 // changement de page pour jouer
 regles.addEventListener("click", () => {
@@ -166,12 +142,11 @@ let timeout;
 let estArrete = true;
 
 const demarrer = () => {
+  changementPseudo();
   if (estArrete) {
     estArrete = false;
     defilerTemps();
   }
-  changementPseudo();
-
   //changement de page vers la page de jeu
   gamePage.style.display = "none";
   tapisJeu.style.display = "flex";
