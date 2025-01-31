@@ -15,18 +15,23 @@ let chrono = document.getElementById("chrono");
 let startBtn = document.getElementById("loadGame");
 const initialInputs = document.getElementById("pseudo");
 const liste = document.getElementById("maListe");
+const consignes = document.getElementById("consignes");
 // Ajouter un tableau pour stocker les pseudos
 let tableauPseudos = [];
 // définir l'index du joueur
 indexJoueurActuel = 0;
-
 let dernierTableau;
 // function qui ajoute les pseudo a la liste et au tableau
 function ajouterName() {
   if (initialInputs.value !== "") {
-    // Ajouter la valeur au tableau
-    tableauPseudos.push(initialInputs.value.trim());
+    // Ajouter la valeur a l'objet dans le tableau
+    const joueurTableau = {
+      pseudo: initialInputs.value.trim(),
+      score: 0,
+    };
+    tableauPseudos.push(joueurTableau);
     dernierTableau = tableauPseudos[tableauPseudos.length - 1];
+
     // Créer un nouvel élément de liste
     const li = document.createElement("li");
     li.textContent = initialInputs.value;
@@ -38,6 +43,7 @@ function ajouterName() {
     initialInputs.value = "";
     // Afficher le tableau dans la console
     console.log("Tableau des pseudos:", tableauPseudos);
+    return joueurTableau;
   }
 }
 // function qui fait une valeur dés aléatoire
@@ -50,57 +56,79 @@ function desAleatoires() {
 // function change l'affichage des pseudo dans la div actual
 function switchPseudo() {
   indexJoueurActuel = (indexJoueurActuel + 1) % tableauPseudos.length;
-  actualPlayer.textContent = tableauPseudos[indexJoueurActuel];
+  // permet le changement de pseudo au bout de 2 secondes
+  setTimeout(function () {
+    joueurTableau = ajouterName();
+    console.log(indexJoueurActuel);
+
+    actualPlayer.textContent = tableauPseudos[indexJoueurActuel].pseudo;
+  }, 2000);
+  return indexJoueurActuel;
 }
 // changement des pseudo dans la div actualPlayer
 function changementPseudo() {
   // définir la div pseudo au premier pseudo rentré lors du lancement de la page
-  actualPlayer.textContent = tableauPseudos[0];
+  actualPlayer.textContent = tableauPseudos[0].pseudo;
 
   // utilisation de la function pour l'affichage des pseudo / distribution des gorgées
   bouttonJoueur.addEventListener("click", () => {
-    switchPseudo();
     calculGorgées();
-
-    console.log(dernierTableau);
   });
 }
-const premierTableau = tableauPseudos[0];
-
+// défininition des consignes
 function calculGorgées() {
   resultat = desAleatoires();
   switch (resultat) {
     case 2:
-      console.log("distribue 1 gorgée");
+      consignes.textContent = "distribue 1 gorgée";
       break;
     case 3:
       break;
     case 4:
-      console.log("distribue 2 gorgées");
+      consignes.textContent = "distribue 2 gorgée";
       break;
-    case 5:
-      break;
+
     case 6:
-      console.log("distribue 3 gorgées");
+      consignes.textContent = "distribue 3 gorgée";
       break;
     case 7:
-      console.log("crie diable");
+      consignes.textContent = "CRIE DIABLE !!!!";
       break;
     case 8:
+      if (indexJoueurActuel === 0) {
+        consignes.textContent = dernierTableau + " boit 1 gorgée";
+      } else {
+        consignes.textContent =
+          tableauPseudos[indexJoueurActuel - 1] + " boit 1 gorgée";
+      }
       break;
     case 9:
+      if (indexJoueurActuel === 0) {
+        consignes.textContent = tableauPseudos[0] + " boit 1 gorgée";
+      } else {
+        consignes.textContent =
+          tableauPseudos[indexJoueurActuel] + " boit 1 gorgée";
+      }
+
       break;
     case 10:
+      if (indexJoueurActuel === tableauPseudos.length - 1) {
+        consignes.textContent = tableauPseudos[0] + " boit 1 gorgée";
+      } else {
+        consignes.textContent =
+          tableauPseudos[indexJoueurActuel + 1] + " boit 1 gorgée";
+      }
       break;
     case 11:
-      console.log("tout le monde boit");
+      consignes.textContent = "tout le monde boit";
       break;
     case 12:
-      console.log("distribue 6 gorgées");
+      consignes.textContent = "distribue 6 gorgées";
       break;
     default:
-      console.log("ne fait rien");
+      consignes.textContent = "Ne Fait Rien";
   }
+  indexJoueurActuel = switchPseudo();
 }
 
 // Ajouter un nouveau pseudo avec le bouton "addPlayer"
